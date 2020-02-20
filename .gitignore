@@ -1,0 +1,12 @@
+
+
+# Data to Avoid #
+####
+*.xml
+*.csv
+*.xsl
+*.txt*
+*.json
+
+#Junk Files#
+*.ini
