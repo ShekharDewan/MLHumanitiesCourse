@@ -5,7 +5,7 @@ import re
 from pathlib import Path
 # text = open('Perseus_clean.xml')
 
-entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\tlg0527_allXML')
+entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\tlg0527_allXML')
 i = 0
 for currFile in entries.iterdir():
     print ("Current File Being Processed is: " + str(currFile))
@@ -16,7 +16,7 @@ for currFile in entries.iterdir():
     title = (soup.find('title')).get_text()
     print(title)
 
-    outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\tlg0527' + '_' + title + '_cleaned' '.xml', 'w', encoding = 'UTF-8')
+    outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\tlg0527' + '_' + title + '_cleaned' '.xml', 'w', encoding = 'UTF-8')
     # soup = bs(infile, 'lxml')
     soup.prettify()
     pn = soup.find_all(["note", "lb", "milestone", "pb", 'head'])

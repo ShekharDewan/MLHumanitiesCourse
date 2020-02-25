@@ -36,21 +36,21 @@ import os
 # from pathlib import Path
 import re
 
-# entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\Perseus_clean.xml')
-outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\Perseus_output.txt', 'w', encoding = 'UTF-8')
-# outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\output.txt', 'a+', encoding = 'UTF-8')
+# entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus_clean.xml')
+outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus_output.txt', 'w', encoding = 'UTF-8')
+# outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\output.txt', 'a+', encoding = 'UTF-8')
 outfile.write("Book" + "\t" + "Chapter" + ":" "Verse" + "\t" + "Greek Text" + "\n")
 
 # for currFile in entries.iterdir():
 # print ("Current File Being Processed is: " + str(currFile))
-infile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\Perseus_clean.xml', 'r', encoding = 'UTF-8')
+infile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus_clean.xml', 'r', encoding = 'UTF-8')
 
 contents = infile.read()
 soup = BeautifulSoup(contents,'xml')
 title = (soup.find('title')).get_text()
 print('Title:', title)
 
-# outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\tlg0527_allXML_Cleaned' + '_output' + ".txt", 'w', encoding = 'UTF-8')
+# outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\tlg0527_allXML_Cleaned' + '_output' + ".txt", 'w', encoding = 'UTF-8')
 
 text = soup.find_all('text')
 for child in text:

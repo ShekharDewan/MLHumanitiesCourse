@@ -23,8 +23,8 @@ def make_dict_from_tsv_file(filestring):
 	return text_for_citation
 
 
-eng_dict = make_dict_from_tsv_file(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\PerseusEnglishOutput.txt')
-grek_dict = make_dict_from_tsv_file(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\PerseusGreekInput.txt') #  PerseusGreekInput.txt
+eng_dict = make_dict_from_tsv_file(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\PerseusEnglishOutput.txt')
+grek_dict = make_dict_from_tsv_file(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\PerseusGreekInput.txt') #  PerseusGreekInput.txt
 
 
 for key in list(eng_dict):
@@ -35,8 +35,8 @@ for key in list(grek_dict):
 	if key not in eng_dict:
 		del grek_dict[key]
 
-inputGreek = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\inputGreek.txt', 'w', encoding = 'utf-8')
-outputEnglish = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\outputEnglish.txt', 'w', encoding = 'utf-8')
+inputGreek = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\inputGreek.txt', 'w', encoding = 'utf-8')
+outputEnglish = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\outputEnglish.txt', 'w', encoding = 'utf-8')
 
 for key in grek_dict:
 	inputGreek.write(str(grek_dict[key] + '\n'))

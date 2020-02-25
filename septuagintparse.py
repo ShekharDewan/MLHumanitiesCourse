@@ -4,19 +4,19 @@ import os
 from pathlib import Path
 import re
 
-# entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\Perseus')
-# outfileGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\PerseusGreekInput.txt', 'w', encoding = 'UTF-8')
-# outfileEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\PerseusEnglishOutput.txt', 'w', encoding = 'UTF-8')
-# titlesGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\PerseusGreekTitles.txt', 'w', encoding = 'UTF-8')
-# titlesEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\PerseusEnglishTitles.txt', 'w', encoding = 'UTF-8')
+entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus')
+outfileGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\PerseusGreekInput.txt', 'w', encoding = 'UTF-8')
+outfileEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\PerseusEnglishOutput.txt', 'w', encoding = 'UTF-8')
+titlesGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\PerseusGreekTitles.txt', 'w', encoding = 'UTF-8')
+titlesEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\PerseusEnglishTitles.txt', 'w', encoding = 'UTF-8')
 
-entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\ThousandYearsCleaned')
-outfileGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\Greek1000YearsGreekInput.txt', 'w', encoding = 'UTF-8')
-outfileEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\Greek1000YearsEnglishOutput.txt', 'w', encoding = 'UTF-8')
-titlesGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\Greek1000YearTitles.txt', 'w', encoding = 'UTF-8')
-titlesEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\English1000YearTitles.txt', 'w', encoding = 'UTF-8')
+# entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\ThousandYearsCleaned')
+# outfileGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\Greek1000YearsGreekInput.txt', 'w', encoding = 'UTF-8')
+# outfileEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\Greek1000YearsEnglishOutput.txt', 'w', encoding = 'UTF-8')
+# titlesGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\Greek1000YearTitles.txt', 'w', encoding = 'UTF-8')
+# titlesEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\English1000YearTitles.txt', 'w', encoding = 'UTF-8')
 
-# outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\output.txt', 'a+', encoding = 'UTF-8')
+# outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\output.txt', 'a+', encoding = 'UTF-8')
 outfileGrc.write("Book" + "\t" 'Version' "\t" + "Chapter" + ":" "Verse" + "\t" + "Greek Text" + "\n")
 outfileEng.write("Book" + "\t" + 'Version' + '\t' "Chapter" + ":" "Verse" + "\t" + "Greek Text" + "\n")
 grctitles = {'dummy' : 1}
@@ -30,7 +30,11 @@ for currFile in sorted(entries.rglob('*grc*xml*')):
     contents = infile.read()
     soup = BeautifulSoup(contents,'lxml')
     
-    title = (soup.find('title')).get_text()
+    title = (str(currFile).split('\\'))[-1] 
+    title = title.split('.')[0] + "" + title.split('.')[1]
+    print ("Title is: " + title)
+
+    # title = (soup.find('title')).get_text()
     if title not in grctitles:
         grctitles[title] = 1
     else:
@@ -39,7 +43,7 @@ for currFile in sorted(entries.rglob('*grc*xml*')):
     # title += str(grctitles[title])
     titlesGrc.write(title + '\t' + str(version) + '\n')
 
-    # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\tlg0527_allXML_Cleaned' + '_output' + ".txt", 'w', encoding = 'UTF-8')
+    # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\tlg0527_allXML_Cleaned' + '_output' + ".txt", 'w', encoding = 'UTF-8')
 
     try:
         text = soup.find('text')
@@ -86,12 +90,16 @@ titlesGrc.close()
 
 
 for currFile in sorted(entries.rglob('*eng*xml*')):
-    print ("Current File Being Processed is: " + str(currFile))
+    
     infile = open(currFile, 'r', encoding = 'UTF-8')
 
     contents = infile.read()
     soup = BeautifulSoup(contents,'lxml')
-    title = (soup.find('title')).get_text()
+    
+    title = (str(currFile).split('\\'))[-1] 
+    title = title.split('.')[0] + "" + title.split('.')[1]
+    print ("Current File Being Processed is: " + title)
+    # title = (soup.find('title')).get_text()
     if title not in engtitles:
         engtitles[title] = 1
     else:
@@ -99,7 +107,7 @@ for currFile in sorted(entries.rglob('*eng*xml*')):
     version = engtitles[title]
     titlesEng.write(title + '\t' + str(version) + '\n')
 
-    # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\tlg0527_allXML_Cleaned' + '_output' + ".txt", 'w', encoding = 'UTF-8')
+    # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\tlg0527_allXML_Cleaned' + '_output' + ".txt", 'w', encoding = 'UTF-8')
     try:
         text = soup.find('text')
         divisions = text.find_all('div')

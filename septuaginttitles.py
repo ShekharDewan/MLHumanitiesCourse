@@ -4,8 +4,8 @@ import os
 from pathlib import Path
 import re
 
-entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\tlg0527_allXML_Cleaned')
-outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\titles.txt', 'w', encoding = 'UTF-8')
+entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\tlg0527_allXML_Cleaned')
+outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\titles.txt', 'w', encoding = 'UTF-8')
 # outfile.write("Book" + "\t" + "Chapter" + "\t" "Verse" + "\t" + "Greek Text" + "\n")
 
 

@@ -2,8 +2,8 @@ import random
 
 # List = open("filename.txt").readlines()
 
-greekLines = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\inputGreek.txt', 'r', encoding = 'utf-8').readlines()
-englishLines = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\outputEnglish.txt', 'r', encoding = 'utf-8').readlines()
+greekLines = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\inputGreek.txt', 'r', encoding = 'utf-8').readlines()
+englishLines = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\outputEnglish.txt', 'r', encoding = 'utf-8').readlines()
 
 
 num_linesGrc = len(greekLines)
@@ -22,12 +22,12 @@ train_size = int(num_lines * 0.9)
 dev_size = int(num_lines * .95)
 test_size = int(num_lines)
 
-train_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\train_source.txt', 'w', encoding = 'utf-8')
-train_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\train_target.txt', 'w', encoding = 'utf-8')
-dev_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\dev_source.txt', 'w', encoding = 'utf-8')
-dev_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\dev_target.txt', 'w', encoding = 'utf-8')
-test_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\test_source.txt', 'w', encoding = 'utf-8')
-test_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\TrainingData\test_target.txt', 'w', encoding = 'utf-8')
+train_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\train_source.txt', 'w', encoding = 'utf-8')
+train_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\train_target.txt', 'w', encoding = 'utf-8')
+dev_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\dev_source.txt', 'w', encoding = 'utf-8')
+dev_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\dev_target.txt', 'w', encoding = 'utf-8')
+test_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\test_source.txt', 'w', encoding = 'utf-8')
+test_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\test_target.txt', 'w', encoding = 'utf-8')
 
 i = 0
 while (i < num_lines):

@@ -11,8 +11,8 @@ def cleanTitle(title = ''):
     return title
 
 # Directories1000YearsGreek
-# file_directories = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\Directories1000YearsGreek.txt', 'r', encoding = 'UTF-8')
-file_directories = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\DirectoriesPerseus.txt', 'r', encoding = 'UTF-8')
+# file_directories = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Directories1000YearsGreek.txt', 'r', encoding = 'UTF-8')
+file_directories = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\DirectoriesPerseus.txt', 'r', encoding = 'UTF-8')
 directories = file_directories.readlines()
 
 
@@ -26,9 +26,9 @@ for directory in directories:
     path = Path(directory)
     greekFiles = path.rglob('*grc*.xml*')
     engFiles = path.rglob('*eng*.xml*')
-    # os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\Perseus')
-    # os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\Perseus\Greek')
-    # os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\Perseus\English')
+    # os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus')
+    # os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\Greek')
+    # os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\English')
     for f in greekFiles:
         infile = open(f, 'r', encoding = 'UTF-8')
         contents = infile.read()
@@ -40,8 +40,8 @@ for directory in directories:
 
         print(title)
 
-        # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\ThousandYearsCleaned\Greek\\' + os.path.basename(g) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
-        outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\Perseus\Greek\\' + os.path.basename(g) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
+        # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\ThousandYearsCleaned\Greek\\' + os.path.basename(g) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
+        outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\Greek\\' + os.path.basename(g) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
         soup.prettify()
 
         '''
@@ -72,8 +72,8 @@ for directory in directories:
         title = cleanTitle(title)
 
         print(title)
-        # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\ThousandYearsCleaned\English\\' + os.path.basename(e) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
-        outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\ML for the Humanities\Perseus\English\\' + os.path.basename(e) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
+        # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\ThousandYearsCleaned\English\\' + os.path.basename(e) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
+        outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\English\\' + os.path.basename(e) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
         soup.prettify()
 
         '''
