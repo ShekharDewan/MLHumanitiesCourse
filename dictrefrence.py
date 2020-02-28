@@ -37,10 +37,13 @@ for key in list(grek_dict):
 
 inputGreek = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\inputGreek.txt', 'w', encoding = 'utf-8')
 outputEnglish = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\outputEnglish.txt', 'w', encoding = 'utf-8')
+line_length = 500
+
 
 for key in grek_dict:
-	inputGreek.write(str(grek_dict[key] + '\n'))
-	outputEnglish.write(str(eng_dict[key] + '\n'))
+	if (len(grek_dict[key]) < line_length and len(eng_dict[key]) < line_length):
+		inputGreek.write(str(grek_dict[key] + '\n'))
+		outputEnglish.write(str(eng_dict[key] + '\n'))
 
 inputGreek.close()
 outputEnglish.close()

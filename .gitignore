@@ -8,5 +8,10 @@
 *.txt*
 *.json
 
+#Files to avoid#
+PerseusEnglishOutput.txt
+PerseusGreekInput.txt
+
+
 #Junk Files#
 *.ini
