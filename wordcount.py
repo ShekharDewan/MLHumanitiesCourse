@@ -33,6 +33,23 @@ for currFile in p.rglob('*eng*.xml'):
         if (i < 5):
             print(text.split(' '))
         i += 1
+        for line in text:
+            line = re.sub(r"(?<=[^\s])-(?=[^\s])", " @-@ ", line)
+            line = line.replace(';', ' ;')
+            line = line.replace('&', '&amp;')
+            line = line.replace('quot ;', '&quot;')
+            line = line.replace('?', ' ?')
+            line = line.replace('.', ' . ')
+            line = line.replace(',', ' ,')
+            line = line.replace(':', ' :')
+            line = line.replace("'", ' &apos; ')
+            line = line.replace('(', '( ')
+            line = line.replace(')', ' )')
+            line = line.replace('/', ' / ')
+            line = line.replace('[', '[ ')
+            line = line.replace(']', ' ]')
+            line = line.replace('!', ' !')
+            line = line.replace('  ', ' ')
         words = text.split(' ')
         wc += len(text)
     except AttributeError:
