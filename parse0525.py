@@ -11,6 +11,11 @@ outfileEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter
 outfileGrc.write("Book" + "\t" + "Chapter" + ":" "Verse" + "\t" + "Greek Text" + "\n")
 outfileEng.write("Book" +'\t' + "Chapter" + ":" "Verse" + "\t" + "EngLish Text" + "\n")
 
+tags_to_remove_english = ['note', 'bibl']
+tags_to_remove_greek = ['bibl', ]
+tags_to_keep_english = ['chapter', 'haeresis', 'verse', 'section', 'paragraph', 'p', 'placeName', 'name', 'seg', 'persName', 'quote']
+tags_to_keep_greek = ['note']
+
 for currFile in sorted(entries.rglob('*grc*xml*')):
     print ("Current File Being Processed is: " + str(currFile))
     infile = open(currFile, 'r', encoding = 'UTF-8')
@@ -25,38 +30,43 @@ for currFile in sorted(entries.rglob('*grc*xml*')):
     try:
         text = soup.find('text')
         divisions = text.find_all('div')
+        
         chapter = 1
         verse = 1
-        tags_to_keep_list = ['chapter', 'haeresis', 'verse', 'section', 'paragraph', 'p', 'placeName', 'name', 'seg', 'persName', 'quote']
-
+        book = 1
         for division in divisions:
-            subtype = division.get('subtype')
-            if(subtype == 'chapter' or subtype == 'haeresis'):
-                chapter = division.get('n')
-            if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
-                for tag in division.find_all(True):
-                    if (tag.name == 'div' or tag.name == 'chapter' or tag.name == 'haeresis' or tag.name == 'verse' or tag.name == 'section' or tag.name == 'paragraph' or tag.name == 'p' or tag.name == 'placeName' or tag.name == 'name' or tag.name == 'seg' or tag.name == 'persName' or tag.name == 'quote'):
-                        pass
-                    else:
-                        tag.decompose()
+            if (division.get('type') == 'edition'):
+                pass
+            else:
+                subtype = division.get('subtype')
+                if (subtype == 'book'):
+                    book = division.get('n')
+                elif(subtype == 'chapter' or subtype == 'haeresis'):
+                    chapter = division.get('n')
+                elif(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
+                    for tag in division.find_all(True):
+                        if (tag.name in tags_to_remove_english):
+                            tag.decompose()
+                        else:
+                            pass
+                            
+                    text = division.get_text()
+                    text = " ".join(text.split())
+                    verse = division.get('n')
+                    paragraph = ""
+                    for para in division.stripped_strings:
+                        paragraph += para
 
-                text = division.get_text()
-                text = " ".join(text.split())
-                verse = division.get('n')
-                paragraph = ""
-                for para in division.stripped_strings:
-                    paragraph += para
-
-                paragraph = str(paragraph)                
-                paragraph = " ".join(paragraph.split())
-                # paragraph = paragraph.lstrip('0123456789')
-                process = BeautifulSoup(paragraph, 'xml')
-                tagsToRemove = process.find_all(['title'])
-                for p in tagsToRemove:
-                    p.extract()
-                paragraph = str(process)
+                    paragraph = str(paragraph)                
+                    paragraph = " ".join(paragraph.split())
+                    # paragraph = paragraph.lstrip('0123456789')
+                    process = BeautifulSoup(paragraph, 'xml')
+                    tagsToRemove = process.find_all(['title'])
+                    for p in tagsToRemove:
+                        p.extract()
+                    paragraph = str(process)
                 
-                outfileGrc.write(str(title) + "\t" + '\t' + str(chapter) + ":" + str(verse) + "\t" + text + '\n')
+                    outfileGrc.write(str(title) + '\t' + str(book) + "\t" + str(chapter) + ":" + str(verse) + "\t" + text + '\n')
         outfileGrc.flush()
         os.fsync(outfileGrc.fileno())
     except AttributeError:
@@ -81,17 +91,20 @@ for currFile in sorted(entries.rglob('*eng*xml*')):
         divisions = text.find_all('div')
         chapter = 1
         verse = 1
+        book = 1
         for division in divisions:
             subtype = division.get('subtype')
-            if(subtype == 'chapter' or subtype == 'haeresis'):
+            if (subtype == 'book'):
+                book = division.get('n')
+            elif(subtype == 'chapter' or subtype == 'haeresis'):
                 chapter = division.get('n')
-            if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
+            elif(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
                 
                 for tag in division.find_all(True):
-                    if (tag.name == 'div' or tag.name == 'chapter' or tag.name == 'haeresis' or tag.name == 'verse' or tag.name == 'section' or tag.name == 'paragraph' or tag.name == 'p' or tag.name == 'placeName' or tag.name == 'name' or tag.name == 'seg' or tag.name == 'persName' or tag.name == 'quote'):
-                        pass
-                    else:
+                    if (tag.name in tags_to_remove_greek):
                         tag.decompose()
+                    else:
+                        pass
                 text = division.get_text()
                 text = " ".join(text.split())
                 verse = division.get('n')
@@ -103,7 +116,7 @@ for currFile in sorted(entries.rglob('*eng*xml*')):
                 
                 paragraph = " ".join(paragraph.split())
                 # paragraph = paragraph.lstrip('0123456789')
-                outfileEng.write(str(title) + "\t" + '\t' + str(chapter) + ":" + str(verse) + "\t" + text + '\n')
+                outfileEng.write(str(title) + '\t' + str(book) + "\t" + str(chapter) + ":" + str(verse) + "\t" + text + '\n')
 
         outfileEng.flush()
         os.fsync(outfileEng.fileno())
