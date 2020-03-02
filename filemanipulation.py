@@ -1,10 +1,12 @@
 import os
 from pathlib import Path
 import re
+import shutil
+
 
 # C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\canonical-greekLit-master\data
 p = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\canonical-greekLit-master\data')
-outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\DirectoriesPerseus.txt', 'w', encoding = 'UTF-8')
+outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\DirectoriesPerseus.txt', encoding = 'UTF-8')
 
 for filename in p.rglob('*eng*.xml'):
     script_dir = os.path.dirname(__file__)
@@ -15,4 +17,16 @@ for filename in p.rglob('*eng*.xml'):
     outfile.flush()
     os.fsync(outfile.fileno())
 
-outfile.close()
+# outfile.close()
+
+
+
+'''
+for line in outfile.readlines():
+    to_join = line.split('\\')
+    dir = ''
+    for i in range(0, len(to_join)-1):
+        dir += to_join[i]
+    
+outpath = 
+'''

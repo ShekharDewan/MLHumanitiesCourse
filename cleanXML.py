@@ -35,28 +35,8 @@ for directory in directories:
         soup = bs(contents,'xml')
         print('file = ', f)
 
-        title = (soup.find('title')).get_text()
-        title = cleanTitle(title)
-
-        print(title)
-
-        # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\ThousandYearsCleaned\Greek\\' + os.path.basename(g) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
-        outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\Greek\\' + os.path.basename(g) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
+        outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\\' + os.path.basename(g) +   '.xml', 'w', encoding = 'UTF-8')
         soup.prettify()
-
-        '''
-        tagsToRemove = soup.find_all(["note", "lb", "milestone", "pb", 'head', 'foreign', 'gap', 'del'])
-
-        for p in tagsToRemove:
-            p.extract()
-
-        soup
-
-        invalid_tags = ['lb', 'l', 'lg', 'p', 'hi', 'gloss']
-        for tag in invalid_tags: 
-            for match in soup.findAll(tag):
-                match.replaceWithChildren()
-        '''
         
         outfile.write(str(soup))
         outfile.close()
@@ -68,12 +48,7 @@ for directory in directories:
         soup = bs(contents,'xml')
         print('file = ', f)
 
-        title = (soup.find('title')).get_text()
-        title = cleanTitle(title)
-
-        print(title)
-        # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\ThousandYearsCleaned\English\\' + os.path.basename(e) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
-        outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\English\\' + os.path.basename(e) + 'cleaned' + '.xml', 'w', encoding = 'UTF-8')
+        outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\\' + os.path.basename(e) + '.xml', 'w', encoding = 'UTF-8')
         soup.prettify()
 
         '''
