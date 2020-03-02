@@ -58,6 +58,7 @@ for currFile in sorted(entries.rglob('*grc*xml*')):
                 # print('hi')
             if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
                 
+                tags_to_keep_list = ['chapter', 'haeresis', 'verse', 'section', 'paragraph', 'p', 'placeName', 'name', 'seg', 'persName', 'quote']
                 for tag in division.find_all(True):
                     if (tag.name == 'div' or tag.name == 'chapter' or tag.name == 'haeresis' or tag.name == 'verse' or tag.name == 'section' or tag.name == 'paragraph' or tag.name == 'p' or tag.name == 'placeName' or tag.name == 'name' or tag.name == 'seg' or tag.name == 'persName' or tag.name == 'quote'):
                         # print(tag.name)

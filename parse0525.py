@@ -27,6 +27,8 @@ for currFile in sorted(entries.rglob('*grc*xml*')):
         divisions = text.find_all('div')
         chapter = 1
         verse = 1
+        tags_to_keep_list = ['chapter', 'haeresis', 'verse', 'section', 'paragraph', 'p', 'placeName', 'name', 'seg', 'persName', 'quote']
+
         for division in divisions:
             subtype = division.get('subtype')
             if(subtype == 'chapter' or subtype == 'haeresis'):
