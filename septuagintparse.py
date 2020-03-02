@@ -52,9 +52,30 @@ for currFile in sorted(entries.rglob('*grc*xml*')):
         verse = 1
         for division in divisions:
             subtype = division.get('subtype')
+            # print("Hello")
             if(subtype == 'chapter' or subtype == 'haeresis'):
                 chapter = division.get('n')
-            if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p'):
+                # print('hi')
+            if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
+                
+                for tag in division.find_all(True):
+                    if (tag.name == 'div' or tag.name == 'chapter' or tag.name == 'haeresis' or tag.name == 'verse' or tag.name == 'section' or tag.name == 'paragraph' or tag.name == 'p' or tag.name == 'placeName' or tag.name == 'name' or tag.name == 'seg' or tag.name == 'persName' or tag.name == 'quote'):
+                        # print(tag.name)
+                        pass
+                    else:
+                        tag.decompose()
+                # inside = subtype.find_all(True):
+
+                '''
+                for a in soup.find('a').children:
+                    if isinstance(a,bs4.element.Tag):
+                        a.decompose()
+                '''
+
+                # text = subtype.find(text=True, recursive=False)
+                # text = ' '.join(subtype.find_all(text=True, recursive=False))
+                # text = ' '.join(subtype.find(text=True, recursive=False) for subtype in soup.findAll(division.subtype))
+                # text = division.get_text()
                 text = division.get_text()
                 text = " ".join(text.split())
                 verse = division.get('n')
@@ -71,7 +92,7 @@ for currFile in sorted(entries.rglob('*grc*xml*')):
                 
                 paragraph = " ".join(paragraph.split())
                 paragraph = paragraph.lstrip('0123456789')
-                process = BeautifulSoup(paragraph, 'lxml')
+                process = BeautifulSoup(paragraph, 'xml')
                 tagsToRemove = process.find_all(['title'])
                 for p in tagsToRemove:
                     p.extract()
@@ -107,7 +128,7 @@ for currFile in sorted(entries.rglob('*eng*xml*')):
     version = engtitles[title]
     titlesEng.write(title + '\t' + str(version) + '\n')
 
-    # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\tlg0527_allXML_Cleaned' + '_output' + ".txt", 'w', encoding = 'UTF-8')
+    # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\tlg0527_allxml_Cleaned' + '_output' + ".txt", 'w', encoding = 'UTF-8')
     try:
         text = soup.find('text')
         divisions = text.find_all('div')
@@ -115,9 +136,18 @@ for currFile in sorted(entries.rglob('*eng*xml*')):
         verse = 1
         for division in divisions:
             subtype = division.get('subtype')
+            # print("Hello")
             if(subtype == 'chapter' or subtype == 'haeresis'):
                 chapter = division.get('n')
-            if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p'):
+                # print('hi')
+            if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
+                
+                for tag in division.find_all(True):
+                    if (tag.name == 'div' or tag.name == 'chapter' or tag.name == 'haeresis' or tag.name == 'verse' or tag.name == 'section' or tag.name == 'paragraph' or tag.name == 'p' or tag.name == 'placeName' or tag.name == 'name' or tag.name == 'seg' or tag.name == 'persName' or tag.name == 'quote'):
+                        # print(tag.name)
+                        pass
+                    else:
+                        tag.decompose()
                 text = division.get_text()
                 text = " ".join(text.split())
                 verse = division.get('n')

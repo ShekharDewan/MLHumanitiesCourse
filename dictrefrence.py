@@ -2,7 +2,8 @@ import sys
 import csv
 csv.field_size_limit(100000000)
 
-
+def findOccurrences(s, ch):
+    return [i for i, letter in enumerate(s) if letter == ch]
 
 def make_dict_from_tsv_file(filestring):
 	text_for_citation = dict()
@@ -37,13 +38,21 @@ for key in list(grek_dict):
 
 inputGreek = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\inputGreek.txt', 'w', encoding = 'utf-8')
 outputEnglish = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\outputEnglish.txt', 'w', encoding = 'utf-8')
-line_length = 500
-
 
 for key in grek_dict:
-	if (len(grek_dict[key]) < line_length and len(eng_dict[key]) < line_length):
-		inputGreek.write(str(grek_dict[key] + '\n'))
-		outputEnglish.write(str(eng_dict[key] + '\n'))
+	#if (len(grek_dict[key]) < line_length and len(eng_dict[key]) < line_length):
+	greek_verse = str(grek_dict[key])
+	eng_verse = str(eng_dict[key])
+	# periods_greek = findOccurrences(greek_verse, '.')
+	# periods_english = findOccurrences(eng_verse, '.')
+	# if (periods_english == periods_greek):
+	greek_verse = greek_verse.split('. ')
+	eng_verse = eng_verse.split('. ')
+	if len(greek_verse) == len(eng_verse):
+		for verse in greek_verse:
+			inputGreek.write(str(verse + '\n'))
+		for verse in eng_verse:
+			outputEnglish.write(str(verse + '\n'))
 
 inputGreek.close()
 outputEnglish.close()
