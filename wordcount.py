@@ -30,29 +30,35 @@ for currFile in p.rglob('*eng*.xml'):
         text = text_tag.get_text()
         text = " ".join(text.split())
         text = text.strip('0123456789')
+        # text = text.strip('.')
+       
+        tokenized_text = ''
+        #for text in text:
+        text = re.sub(r"(?<=[^\s])-(?=[^\s])", " @-@ ", text)
+        text = text.replace(';', ' ;')
+        text = text.replace('&', '&amp;')
+        text = text.replace('quot ;', '&quot;')
+        text = text.replace('?', ' ?')
+        text = text.replace('.', ' . ')
+        text = text.replace(',', ' ,')
+        text = text.replace(':', ' :')
+        text = text.replace("'", ' &apos; ')
+        text = text.replace('(', '( ')
+        text = text.replace(')', ' )')
+        text = text.replace('/', ' / ')
+        text = text.replace('[', '[ ')
+        text = text.replace(']', ' ]')
+        text = text.replace('!', ' !')
+        text = text.replace('  ', ' ')
+        tokenized_text += text
+        words = tokenized_text.split(' ')
         if (i < 5):
-            print(text.split(' '))
+            print(words)
+        else:
+            pass #print('hi')
         i += 1
-        for line in text:
-            line = re.sub(r"(?<=[^\s])-(?=[^\s])", " @-@ ", line)
-            line = line.replace(';', ' ;')
-            line = line.replace('&', '&amp;')
-            line = line.replace('quot ;', '&quot;')
-            line = line.replace('?', ' ?')
-            line = line.replace('.', ' . ')
-            line = line.replace(',', ' ,')
-            line = line.replace(':', ' :')
-            line = line.replace("'", ' &apos; ')
-            line = line.replace('(', '( ')
-            line = line.replace(')', ' )')
-            line = line.replace('/', ' / ')
-            line = line.replace('[', '[ ')
-            line = line.replace(']', ' ]')
-            line = line.replace('!', ' !')
-            line = line.replace('  ', ' ')
-        words = text.split(' ')
-        wc += len(text)
+        wc += len(words)
     except AttributeError:
         pass
 
-print(wc)
+print(int(wc))
