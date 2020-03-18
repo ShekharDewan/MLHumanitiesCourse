@@ -3,8 +3,10 @@ import random
 '''
 Splits data from a folder containing txt files into dev, train and test text files. Ideal for ML. 
 '''
-greekLines = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\inputGreek.txt', 'r', encoding = 'utf-8').readlines()
-englishLines = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\outputEnglish.txt', 'r', encoding = 'utf-8').readlines()
+inputGreek = r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\SockeyeReady\InputGreek.txt'
+outputEnglish = r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\SockeyeReady\OutputEnglish.txt'
+greekLines = open(inputGreek, 'r', encoding = 'utf-8').readlines()
+englishLines = open(outputEnglish, 'r', encoding = 'utf-8').readlines()
 
 
 num_linesGrc = len(greekLines)
@@ -23,12 +25,12 @@ train_size = int(num_lines * 0.9)
 dev_size = int(num_lines * .95)
 test_size = int(num_lines)
 
-train_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\train_source.txt', 'w', encoding = 'utf-8')
-train_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\train_target.txt', 'w', encoding = 'utf-8')
-dev_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\dev_source.txt', 'w', encoding = 'utf-8')
-dev_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\dev_target.txt', 'w', encoding = 'utf-8')
-test_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\test_source.txt', 'w', encoding = 'utf-8')
-test_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\test_target.txt', 'w', encoding = 'utf-8')
+train_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\SockeyeReady\train_source.txt', 'w', encoding = 'utf-8')
+train_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\SockeyeReady\train_target.txt', 'w', encoding = 'utf-8')
+dev_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\SockeyeReady\dev_source.txt', 'w', encoding = 'utf-8')
+dev_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\SockeyeReady\dev_target.txt', 'w', encoding = 'utf-8')
+test_source = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\SockeyeReady\test_source.txt', 'w', encoding = 'utf-8')
+test_target = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\SockeyeReady\test_target.txt', 'w', encoding = 'utf-8')
 
 i = 0
 while (i < num_lines):
@@ -48,7 +50,8 @@ while (i < num_lines):
     i += 1
 
 
-# greekLines.close()
+#os.remove(inputGreek)
+#os.remove(outputEnglish)
 # englishLines.close()
 train_source.close()
 train_target.close()
