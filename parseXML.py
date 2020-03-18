@@ -4,174 +4,140 @@ import os
 from pathlib import Path
 import re
 
-entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus')
-outfileGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\PerseusGreekInput.txt', 'w', encoding = 'UTF-8')
-outfileEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\PerseusEnglishOutput.txt', 'w', encoding = 'UTF-8')
-titlesGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\PerseusGreekTitles.txt', 'w', encoding = 'UTF-8')
-titlesEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\PerseusEnglishTitles.txt', 'w', encoding = 'UTF-8')
+greek_entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\Greek')
+english_entries = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\English')
 
-# entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\ThousandYearsCleaned')
-# outfileGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\Greek1000YearsGreekInput.txt', 'w', encoding = 'UTF-8')
-# outfileEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\Greek1000YearsEnglishOutput.txt', 'w', encoding = 'UTF-8')
-# titlesGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\Greek1000YearTitles.txt', 'w', encoding = 'UTF-8')
-# titlesEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\English1000YearTitles.txt', 'w', encoding = 'UTF-8')
+#tags_to_remove_english = ['note', 'bibl']
+#tags_to_remove_greek = ['bibl', ]
+#tags_to_keep_english = ['chapter', 'haeresis', 'verse', 'section', 'paragraph', 'p', 'placeName', 'name', 'seg', 'persName', 'quote']
 
-# outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\output.txt', 'a+', encoding = 'UTF-8')
-outfileGrc.write("Book" + "\t" 'Version' "\t" + "Chapter" + ":" "Verse" + "\t" + "Greek Text" + "\n")
-outfileEng.write("Book" + "\t" + 'Version' + '\t' "Chapter" + ":" "Verse" + "\t" + "Greek Text" + "\n")
-grctitles = {'dummy' : 1}
-engtitles = {'dummy' : 1}
-version = 1
+#tags_to_keep_greek = ['note']
 
-for currFile in sorted(entries.rglob('*grc*xml*')):
+for currFile in sorted(greek_entries.rglob('*xml*')):
+    title = (str(currFile).split('\\'))[-1] 
+    title = title.split('.')[0] + "" + title.split('.')[1]
+    print ("Title is: " + title)
+
+    outfileGrc = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\\' + title + 'GRC.txt', 'w', encoding = 'UTF-8')
+    outfileGrc.write("title" + '\t' + 'Book' + "\t" + "Chapter" + ":" "Verse" + "\t" + "Greek Text" + "\n")
     print ("Current File Being Processed is: " + str(currFile))
     infile = open(currFile, 'r', encoding = 'UTF-8')
 
     contents = infile.read()
     soup = BeautifulSoup(contents,'lxml')
-    
-    title = (str(currFile).split('\\'))[-1] 
-    title = title.split('.')[0] + "" + title.split('.')[1]
-    print ("Title is: " + title)
-
-    # title = (soup.find('title')).get_text()
-    if title not in grctitles:
-        grctitles[title] = 1
-    else:
-        grctitles[title] += 1
-    version = grctitles[title]
-    # title += str(grctitles[title])
-    titlesGrc.write(title + '\t' + str(version) + '\n')
-
-    # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\tlg0527_allXML_Cleaned' + '_output' + ".txt", 'w', encoding = 'UTF-8')
 
     try:
         text = soup.find('text')
         divisions = text.find_all('div')
+        book = 1
         chapter = 1
         verse = 1
         for division in divisions:
-            subtype = division.get('subtype')
-            # print("Hello")
-            if(subtype == 'chapter' or subtype == 'haeresis'):
-                chapter = division.get('n')
-                # print('hi')
-            if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
+            if(division.get('type') == 'edition'):
+                pass
+            else:
                 
-                tags_to_keep_list = ['chapter', 'haeresis', 'verse', 'section', 'paragraph', 'p', 'placeName', 'name', 'seg', 'persName', 'quote']
-                for tag in division.find_all(True):
-                    if (tag.name == 'div' or tag.name == 'chapter' or tag.name == 'haeresis' or tag.name == 'verse' or tag.name == 'section' or tag.name == 'paragraph' or tag.name == 'p' or tag.name == 'placeName' or tag.name == 'name' or tag.name == 'seg' or tag.name == 'persName' or tag.name == 'quote'):
-                        # print(tag.name)
-                        pass
-                    else:
-                        tag.decompose()
-                # inside = subtype.find_all(True):
+                subtype = division.get('subtype')
+                if(subtype == 'book'):
+                    if(division.get('n') != None):
+                        book = division.get('n')
+                # print("Hello")
+                else:
+                    if(subtype == 'chapter' or subtype == 'haeresis'):
+                        if(division.get('n') != None):
+                            chapter = division.get('n')
+                        # print('hi')
+                    if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
+                        
+                        tags_to_keep_list = ['chapter', 'haeresis', 'verse', 'section', 'paragraph', 'p', 'placeName', 'name', 'seg', 'persName', 'quote']
+                        for tag in division.find_all(True):
+                            if (tag.name == 'div' or tag.name == 'chapter' or tag.name == 'haeresis' or tag.name == 'verse' or tag.name == 'section' or tag.name == 'paragraph' or tag.name == 'p' or tag.name == 'placeName' or tag.name == 'name' or tag.name == 'seg' or tag.name == 'persName' or tag.name == 'quote'):
+                                # print(tag.name)
+                                pass
+                            else:
+                                tag.decompose()
 
-                '''
-                for a in soup.find('a').children:
-                    if isinstance(a,bs4.element.Tag):
-                        a.decompose()
-                '''
+                        text = division.get_text()
+                        text = " ".join(text.split())
+                        verse = division.get('n')
+                        
+                        paragraph = ""
+                        for para in division.stripped_strings:
+                            paragraph += para
 
-                # text = subtype.find(text=True, recursive=False)
-                # text = ' '.join(subtype.find_all(text=True, recursive=False))
-                # text = ' '.join(subtype.find(text=True, recursive=False) for subtype in soup.findAll(division.subtype))
-                # text = division.get_text()
-                text = division.get_text()
-                text = " ".join(text.split())
-                verse = division.get('n')
-                #if(verse.isdigit()):
-                paragraph = ""
-                for para in division.stripped_strings:
-                    paragraph += para
-
-                paragraph = str(paragraph)
-                # paragraph = (division.get_text()).strip()
-                # paragraph = paragraph.replace('\t', ' ')
-                # paragraph = paragraph.replace('\n', ' ')
-                # paragraph = re.sub(r'\s([?.!"](?:\s|$))', r'\1', paragraph)
-                
-                paragraph = " ".join(paragraph.split())
-                paragraph = paragraph.lstrip('0123456789')
-                process = BeautifulSoup(paragraph, 'xml')
-                tagsToRemove = process.find_all(['title'])
-                for p in tagsToRemove:
-                    p.extract()
-                paragraph = str(process)
-                
-                outfileGrc.write(str(title) + "\t" + str(version) + '\t' + str(chapter) + ":" + str(verse) + "\t" + text + '\n')
+                        paragraph = str(paragraph)                    
+                        paragraph = " ".join(paragraph.split())
+                    
+                        outfileGrc.write(str(title) + '\t' + str(book) + '\t' + str(chapter) + ":" + str(verse) + "\t" + paragraph + '\n')
         outfileGrc.flush()
         os.fsync(outfileGrc.fileno())
     except AttributeError:
         pass
     infile.close()
-outfileGrc.close()
-titlesGrc.close()
+    outfileGrc.close()
 
 
 
-
-for currFile in sorted(entries.rglob('*eng*xml*')):
-    
+for currFile in sorted(english_entries.rglob('*xml*')):
+    engtitles = {'dummy' : 1}
+    title = (str(currFile).split('\\'))[-1] 
+    title = title.split('.')[0] + "" + title.split('.')[1]
+    print ("Current File Being Processed is: " + title)
+    # title = (soup.find('title')).get_text()
+    outfileEng = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\\' + title + 'ENG.txt', 'w', encoding = 'UTF-8')
+    outfileEng.write("title" + '\t' + 'Book' + "\t" + "Chapter" + ":" "Verse" + "\t" + "English Text" + "\n")
     infile = open(currFile, 'r', encoding = 'UTF-8')
 
     contents = infile.read()
     soup = BeautifulSoup(contents,'lxml')
     
-    title = (str(currFile).split('\\'))[-1] 
-    title = title.split('.')[0] + "" + title.split('.')[1]
-    print ("Current File Being Processed is: " + title)
-    # title = (soup.find('title')).get_text()
-    if title not in engtitles:
-        engtitles[title] = 1
-    else:
-        engtitles[title] += 1
-    version = engtitles[title]
-    titlesEng.write(title + '\t' + str(version) + '\n')
-
     # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\tlg0527_allxml_Cleaned' + '_output' + ".txt", 'w', encoding = 'UTF-8')
     try:
         text = soup.find('text')
         divisions = text.find_all('div')
+        book = 1
         chapter = 1
         verse = 1
         for division in divisions:
-            subtype = division.get('subtype')
-            # print("Hello")
-            if(subtype == 'chapter' or subtype == 'haeresis'):
-                chapter = division.get('n')
-                # print('hi')
-            if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
-                
-                for tag in division.find_all(True):
-                    if (tag.name == 'div' or tag.name == 'chapter' or tag.name == 'haeresis' or tag.name == 'verse' or tag.name == 'section' or tag.name == 'paragraph' or tag.name == 'p' or tag.name == 'placeName' or tag.name == 'name' or tag.name == 'seg' or tag.name == 'persName' or tag.name == 'quote'):
-                        # print(tag.name)
-                        pass
-                    else:
-                        tag.decompose()
-                text = division.get_text()
-                text = " ".join(text.split())
-                verse = division.get('n')
-                #if(verse.isdigit()):
-                paragraph = ""
-                for para in division.stripped_strings:
-                    paragraph += para
+            if(division.get('type') == 'edition'):
+                pass
+            else:
+                subtype = division.get('subtype')
+                if(subtype == 'book'):
+                    if(division.get('n') != None):
+                        book = division.get('n')
+                else:
+                    if(subtype == 'chapter' or subtype == 'haeresis'):
+                        if(division.get('n') != None):
+                            chapter = division.get('n')
+                    if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
+                        
+                        tags_to_keep_list = ['chapter', 'haeresis', 'verse', 'section', 'paragraph', 'p', 'placeName', 'name', 'seg', 'persName', 'quote']
+                        for tag in division.find_all(True):
+                            if (tag.name == 'div' or tag.name == 'chapter' or tag.name == 'haeresis' or tag.name == 'verse' or tag.name == 'section' or tag.name == 'paragraph' or tag.name == 'p' or tag.name == 'placeName' or tag.name == 'name' or tag.name == 'seg' or tag.name == 'persName' or tag.name == 'quote'):
+                                # print(tag.name)
+                                pass
+                            else:
+                                tag.decompose()
+                        # inside = subtype.find_all(True):
 
-                paragraph = str(paragraph)
-                # paragraph = (division.get_text()).strip()
-                # paragraph = paragraph.replace('\t', ' ')
-                # paragraph = paragraph.replace('\n', ' ')
-                # paragraph = re.sub(r'\s([?.!"](?:\s|$))', r'\1', paragraph)
-                
-                paragraph = " ".join(paragraph.split())
-                paragraph = paragraph.lstrip('0123456789')
-                outfileEng.write(str(title) + "\t" + str(version) + '\t' + str(chapter) + ":" + str(verse) + "\t" + text + '\n')
+                        text = division.get_text()
+                        text = " ".join(text.split())
+                        verse = division.get('n')
+                        #if(verse.isdigit()):
+                        paragraph = ""
+                        for para in division.stripped_strings:
+                            paragraph += para
+
+                        paragraph = str(paragraph)                    
+                        paragraph = " ".join(paragraph.split())
+
+                        outfileEng.write(str(title) + '\t' + str(book) + '\t' + str(chapter) + ":" + str(verse) + "\t" + paragraph + '\n')
 
         outfileEng.flush()
         os.fsync(outfileEng.fileno())
     except AttributeError:
         pass
     infile.close()
-outfileEng.close()
-titlesEng.close()
+    outfileEng.close()
 

@@ -59,7 +59,6 @@ for currFile in sorted(entries.rglob('*grc*xml*')):
 
                     paragraph = str(paragraph)                
                     paragraph = " ".join(paragraph.split())
-                    # paragraph = paragraph.lstrip('0123456789')
                     process = BeautifulSoup(paragraph, 'xml')
                     tagsToRemove = process.find_all(['title'])
                     for p in tagsToRemove:

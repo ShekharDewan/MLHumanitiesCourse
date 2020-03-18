@@ -2,6 +2,7 @@ import os
 from pathlib import Path
 from bs4 import BeautifulSoup as bs
 from os import listdir
+import shutil
 
 def cleanTitle(title = ''):
     title = "_".join(title.split())
@@ -12,62 +13,59 @@ def cleanTitle(title = ''):
 
 # Directories1000YearsGreek
 # file_directories = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Directories1000YearsGreek.txt', 'r', encoding = 'UTF-8')
-file_directories = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\DirectoriesPerseus.txt', 'r', encoding = 'UTF-8')
-directories = file_directories.readlines()
+entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\canonical-greekLit-master\data')
+
+#file_directories = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\DirectoriesPerseus.txt', 'r', encoding = 'UTF-8')
+#directories = file_directories.readlines()
 
 
 
 root = os.path.dirname(__file__)
 
-for directory in directories:    
-    directory = directory.replace('\n', '')
-    directory = os.path.normpath(directory)
+    #directory = directory.replace('\n', '')
+    #directory = os.path.normpath(directory)
     # print(directory)
-    path = Path(directory)
-    greekFiles = path.rglob('*grc*.xml*')
-    engFiles = path.rglob('*eng*.xml*')
-    # os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus')
-    # os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\Greek')
-    # os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\English')
-    for f in greekFiles:
-        infile = open(f, 'r', encoding = 'UTF-8')
-        contents = infile.read()
-        soup = bs(contents,'xml')
-        print('file = ', f)
+    #path = Path(directory)
+    
 
-        outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\\' + os.path.basename(g) +   '.xml', 'w', encoding = 'UTF-8')
-        soup.prettify()
-        
-        outfile.write(str(soup))
-        outfile.close()
-        infile.close()
-        
-    for f in engFiles:
-        infile = open(f, 'r', encoding = 'UTF-8')
-        contents = infile.read()
-        soup = bs(contents,'xml')
-        print('file = ', f)
+greekFiles = sorted(entries.rglob('*grc*.xml*'))
+engFiles = sorted(entries.rglob('*eng*.xml*'))
 
-        outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\\' + os.path.basename(e) + '.xml', 'w', encoding = 'UTF-8')
-        soup.prettify()
+os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus')
+os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\Greek')
+os.mkdir(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\English')
+for f in greekFiles:
+    title = title = (str(f).split('\\'))[-1] 
+    title = title.split('.')[0] + "" + title.split('.')[1]
+    infile = open(f, 'r', encoding = 'UTF-8')
+    contents = infile.read()
+    soup = bs(contents,'xml')
+    print('file = ', f)
 
-        '''
-        tagsToRemove = soup.find_all(["note", "lb", "milestone", "pb", 'head', 'foreign', 'gap', 'del'])
+    outName = r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\Greek\\' + title +   '.xml'
+    newFile = shutil.copy(f, outName)
+    
+    #outfile = open(
+    #soup.prettify()
+    
+    #outfile.write(str(soup))
+    #outfile.close()
+    infile.close()
+    
+for f in engFiles:  
+    title = title = (str(f).split('\\'))[-1] 
+    title = title.split('.')[0] + "" + title.split('.')[1]
+    infile = open(f, 'r', encoding = 'UTF-8')
+    contents = infile.read()
+    soup = bs(contents,'xml')
+    print('file = ', f)
 
-        for p in tagsToRemove:
-            p.extract()
+    outName = r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\English\\' + title +   '.xml'
+    newFile = shutil.copy(f, outName)
 
-        soup
-
-        invalid_tags = ['lb', 'l', 'lg', 'p']
-        for tag in invalid_tags: 
-            for match in soup.findAll(tag):
-                match.replaceWithChildren()
-        '''
-
-        outfile.write(str(soup))
-        outfile.close()
-        infile.close()
+    #outfile.write(str(soup))
+    #outfile.close()
+    infile.close()
 
 
 
