@@ -1,7 +1,8 @@
 import random
 
-# List = open("filename.txt").readlines()
-
+'''
+Splits data from a folder containing txt files into dev, train and test text files. Ideal for ML. 
+'''
 greekLines = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\inputGreek.txt', 'r', encoding = 'utf-8').readlines()
 englishLines = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\TrainingData\outputEnglish.txt', 'r', encoding = 'utf-8').readlines()
 

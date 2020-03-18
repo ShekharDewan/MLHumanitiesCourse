@@ -9,7 +9,10 @@ from pathlib import Path
 import re
 
 
-# C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\canonical-greekLit-master\data
+
+'''
+Counts the number of words in the text of a folder containing XML files from the Perseus project.
+'''
 p = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\canonical-greekLit-master\data')
 wc = 0
 

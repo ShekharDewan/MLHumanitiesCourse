@@ -4,29 +4,15 @@ from bs4 import BeautifulSoup as bs
 from os import listdir
 import shutil
 
-def cleanTitle(title = ''):
-    title = "_".join(title.split())
-    titleTemp = ''.join(i for i in title if i.isdigit() or i.isalpha())
-    title = titleTemp
-    title = title.replace('?', '')
-    return title
+'''
+This program moves xml documents for a nested directory structure into two folders within Perseus - 
+English and Greek for the pertinent texts. 
+Currently does greek and english one after the other - this can be improved with zip. 
+'''
 
-# Directories1000YearsGreek
-# file_directories = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Directories1000YearsGreek.txt', 'r', encoding = 'UTF-8')
 entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\canonical-greekLit-master\data')
 
-#file_directories = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\DirectoriesPerseus.txt', 'r', encoding = 'UTF-8')
-#directories = file_directories.readlines()
-
-
-
-root = os.path.dirname(__file__)
-
-    #directory = directory.replace('\n', '')
-    #directory = os.path.normpath(directory)
-    # print(directory)
-    #path = Path(directory)
-    
+root = os.path.dirname(__file__)    
 
 greekFiles = sorted(entries.rglob('*grc*.xml*'))
 engFiles = sorted(entries.rglob('*eng*.xml*'))
@@ -45,11 +31,6 @@ for f in greekFiles:
     outName = r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\Greek\\' + title +   '.xml'
     newFile = shutil.copy(f, outName)
     
-    #outfile = open(
-    #soup.prettify()
-    
-    #outfile.write(str(soup))
-    #outfile.close()
     infile.close()
     
 for f in engFiles:  
@@ -62,9 +43,6 @@ for f in engFiles:
 
     outName = r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus\English\\' + title +   '.xml'
     newFile = shutil.copy(f, outName)
-
-    #outfile.write(str(soup))
-    #outfile.close()
     infile.close()
 
 

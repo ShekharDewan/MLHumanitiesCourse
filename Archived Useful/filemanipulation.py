@@ -16,17 +16,3 @@ for filename in p.rglob('*eng*.xml'):
     outfile.write(dir_path + '\n')
     outfile.flush()
     os.fsync(outfile.fileno())
-
-# outfile.close()
-
-
-
-'''
-for line in outfile.readlines():
-    to_join = line.split('\\')
-    dir = ''
-    for i in range(0, len(to_join)-1):
-        dir += to_join[i]
-    
-outpath = 
-'''

@@ -10,19 +10,13 @@ def findOccurrences(s, ch):
 def make_dict_from_tsv_file(filestring):
 	text_for_citation = dict()
 	with open(filestring, newline='\n', encoding = 'UTF-8') as tsv_file:
-		#lines= tsv_file.readlines()
 		reader = csv.reader(tsv_file, quoting=csv.QUOTE_NONE, delimiter='\t')
-
 		for line in reader:
 			try:
-			#print(line)
 				if(len(line[3]) < max_field_size):
 					text_for_citation[line[0]+ '_' + line[1] + '_' + line[2]] = line[3]
 			except Exception as e:
 				pass
-		#for line in lines:
-		#	print(line)
-	#print(text_for_citation)
 	return text_for_citation
 
 
@@ -45,8 +39,10 @@ for grc_file in sorted(entries.rglob('*GRC*')):
 
 		intersection = set(grc_dict.keys()).intersection(set(eng_dict.keys()))
 		for key in sorted(intersection):
+			# Remove empty keys
 			if(len(grc_dict[key]) < 1 or len(eng_dict[key]) < 1):
 				intersection.remove(key)
+		#remove really small files. 
 		if(len(intersection) < 100):
 			pass
 		else:

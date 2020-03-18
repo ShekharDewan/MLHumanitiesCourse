@@ -3,6 +3,10 @@ from pathlib import Path
 import re
 import shutil
 
+
+'''
+Matches the titles of greek and english XML files to remove ones without a match
+'''
 entries  = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\Perseus')
 
 engTitles = set()

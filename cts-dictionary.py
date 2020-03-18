@@ -1344,13 +1344,19 @@ mydict = {
 "tlg4086tlg002":"Agathodaimon, "
 }
 
+
+'''
+Returns associated title from TLG
+'''
 def titlefromTLG(tlg = 'tlg0001tlg001'):
     if(tlg in mydict):
         return(mydict[tlg])
     else:
         return tlg
 
-
+'''
+This program converts a folder of files with TLG names to files with their titles as given in the above dictionary. 
+'''
 if __name__ == "__main__":
     import os
     from pathlib import Path

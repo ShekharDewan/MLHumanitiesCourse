@@ -10,8 +10,13 @@ english_entries = Path(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\W
 #tags_to_remove_english = ['note', 'bibl']
 #tags_to_remove_greek = ['bibl', ]
 #tags_to_keep_english = ['chapter', 'haeresis', 'verse', 'section', 'paragraph', 'p', 'placeName', 'name', 'seg', 'persName', 'quote']
-
 #tags_to_keep_greek = ['note']
+
+'''
+Program for cleaning and parsing english and greek xml texts from the perseus project. Currently does greek and then english - 
+this could be improved by using sort and then zip, and then to do it all together, making the code much shorter. 
+'''
+
 
 for currFile in sorted(greek_entries.rglob('*xml*')):
     title = (str(currFile).split('\\'))[-1] 
@@ -41,18 +46,15 @@ for currFile in sorted(greek_entries.rglob('*xml*')):
                 if(subtype == 'book'):
                     if(division.get('n') != None):
                         book = division.get('n')
-                # print("Hello")
                 else:
                     if(subtype == 'chapter' or subtype == 'haeresis'):
                         if(division.get('n') != None):
                             chapter = division.get('n')
-                        # print('hi')
                     if(subtype == 'verse' or subtype == 'section' or 'paragraph' or 'p' or 'seg'):
                         
                         tags_to_keep_list = ['chapter', 'haeresis', 'verse', 'section', 'paragraph', 'p', 'placeName', 'name', 'seg', 'persName', 'quote']
                         for tag in division.find_all(True):
                             if (tag.name == 'div' or tag.name == 'chapter' or tag.name == 'haeresis' or tag.name == 'verse' or tag.name == 'section' or tag.name == 'paragraph' or tag.name == 'p' or tag.name == 'placeName' or tag.name == 'name' or tag.name == 'seg' or tag.name == 'persName' or tag.name == 'quote'):
-                                # print(tag.name)
                                 pass
                             else:
                                 tag.decompose()
@@ -90,8 +92,7 @@ for currFile in sorted(english_entries.rglob('*xml*')):
 
     contents = infile.read()
     soup = BeautifulSoup(contents,'lxml')
-    
-    # outfile = open(r'C:\Users\shekh\Google Drive\Courses At Mount Allison_\Winter 2020\MLHumanitiesCourse\tlg0527_allxml_Cleaned' + '_output' + ".txt", 'w', encoding = 'UTF-8')
+
     try:
         text = soup.find('text')
         divisions = text.find_all('div')
@@ -115,16 +116,13 @@ for currFile in sorted(english_entries.rglob('*xml*')):
                         tags_to_keep_list = ['chapter', 'haeresis', 'verse', 'section', 'paragraph', 'p', 'placeName', 'name', 'seg', 'persName', 'quote']
                         for tag in division.find_all(True):
                             if (tag.name == 'div' or tag.name == 'chapter' or tag.name == 'haeresis' or tag.name == 'verse' or tag.name == 'section' or tag.name == 'paragraph' or tag.name == 'p' or tag.name == 'placeName' or tag.name == 'name' or tag.name == 'seg' or tag.name == 'persName' or tag.name == 'quote'):
-                                # print(tag.name)
                                 pass
                             else:
                                 tag.decompose()
-                        # inside = subtype.find_all(True):
 
                         text = division.get_text()
                         text = " ".join(text.split())
                         verse = division.get('n')
-                        #if(verse.isdigit()):
                         paragraph = ""
                         for para in division.stripped_strings:
                             paragraph += para
