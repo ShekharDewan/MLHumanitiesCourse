@@ -4,6 +4,7 @@ import os
 from pathlib import Path
 csv.field_size_limit(100000000)
 max_field_size = 1000
+
 def findOccurrences(s, ch):
     return [i for i, letter in enumerate(s) if letter == ch]
 
@@ -25,6 +26,7 @@ for grc_file in sorted(entries.rglob('*GRC*')):
 	title = (str(grc_file).split('\\'))[-1]
 	title = title.split('GRC')[0]
 	eng_file = ''
+	#Find corresponding english, and eliminate if it doesn't exist. 
 	for f in sorted(entries.rglob('*ENG*')):
 		title_eng = (str(f).split('\\'))[-1]
 		title_eng = title_eng.split('ENG')[0]
